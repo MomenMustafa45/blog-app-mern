@@ -1,0 +1,15 @@
+.dashboard-parent {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  min-height: calc(100vh - 130px);
+  padding-top: 100px;
+  background: linear-gradient(296deg, #4158d0, #c850c0);
+}
+
+/* dashboard Main */
+
+.table-parent {
+  flex: 10;
+  padding: 30px 20px;
+}

@@ -1,0 +1,108 @@
+.hero-section {
+  width: 100%;
+  min-height: 80vh;
+  padding: 140px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(45deg, #ff01c4, #50b9dc, #3300ff, #8b9b05);
+  background-size: 800% 800%;
+
+  -webkit-animation: background-anim 12s ease infinite;
+  -moz-animation: background-anim 12s ease infinite;
+  animation: background-anim 12s ease infinite;
+}
+
+.hero-section h1 {
+  font-size: 12rem;
+  color: #000;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+}
+
+/* Background Gradient Anim */
+/* Background Gradient Anim */
+@-webkit-keyframes background-anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 51%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes background-anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 51%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes background-anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 51%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* END Background Gradient Anim */
+/* END Background Gradient Anim */
+
+/* END OF HERO SECTION */
+/* END OF HERO SECTION */
+
+/* START OF ARTICLES SECTION */
+/* START OF ARTICLES SECTION */
+
+.latest-posts-parent {
+  padding: 0 40px 100px 40px;
+}
+
+.latest-posts-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.latest-posts-title h2 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* latest-posts-container */
+.latest-posts-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+/* media querries */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 7rem;
+  }
+
+  .latest-posts-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .latest-posts-title h2 {
+    font-size: 2rem;
+  }
+}

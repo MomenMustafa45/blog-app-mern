@@ -1,0 +1,47 @@
+.posts-page-parent {
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(270deg, #58ffff, #d8349e, #799cff);
+  background-size: 600% 600%;
+
+  -webkit-animation: background-posts-page 14s ease infinite;
+  -moz-animation: background-posts-page 14s ease infinite;
+  animation: background-posts-page 14s ease infinite;
+}
+
+@-webkit-keyframes background-posts-page {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}
+@-moz-keyframes background-posts-page {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}
+@keyframes background-posts-page {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}

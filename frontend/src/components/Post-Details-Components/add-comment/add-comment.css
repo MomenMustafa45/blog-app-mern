@@ -1,0 +1,27 @@
+.add-comment-parent .create-post-input {
+  width: 80%;
+  padding: 12px;
+  background-color: #e2e2e2;
+  border: 2px solid rgba(51, 51, 51, 0.38);
+  font-size: 14px;
+  margin: 10px 0;
+}
+.add-comment-parent .create-post-input:focus {
+  border-color: #3898ec;
+  outline: 0;
+}
+
+.add-comment-parent .create-post-btn {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 13px 25px;
+  transition: background-color 0.4s, color 0.4s;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.add-comment-parent .create-post-btn:hover {
+  color: #e2e2e2;
+  background-color: #333;
+}

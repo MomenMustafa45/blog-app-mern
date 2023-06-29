@@ -1,0 +1,145 @@
+.create-post-parent {
+  padding: 100px 50px;
+  background: linear-gradient(270deg, #58ffff, #d8349e, #799cff);
+  background-size: 600% 600%;
+
+  -webkit-animation: background-create-post 14s ease infinite;
+  -moz-animation: background-create-post 14s ease infinite;
+  animation: background-create-post 14s ease infinite;
+}
+
+@-webkit-keyframes background-create-post {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}
+@-moz-keyframes background-create-post {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}
+@keyframes background-create-post {
+  0% {
+    background-position: 0% 2%;
+  }
+  50% {
+    background-position: 100% 99%;
+  }
+  100% {
+    background-position: 0% 2%;
+  }
+}
+
+.create-post-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+}
+.create-post-title h1 {
+  text-transform: uppercase;
+  font-size: 70px;
+  margin: 10px 0;
+  font-weight: 700;
+  line-height: 50.1px;
+  color: #333;
+  -webkit-text-stroke: 1px #282828;
+  text-shadow: 0px 4px 4px #282828;
+}
+.create-post-title h3 {
+  text-transform: capitalize;
+}
+
+/* FORM */
+/* FORM */
+.create-post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-post-form .create-post-input,
+.create-post-form .create-post-textarea,
+.create-post-form .create-post-upload {
+  width: 50%;
+  padding: 15px;
+  background-color: #e2e2e2;
+  border: 2px solid rgba(51, 51, 51, 0.38);
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.create-post-form .create-post-input:focus,
+.create-post-form .create-post-textarea:focus,
+.create-post-form .create-post-upload:focus {
+  border-color: #3898ec;
+  outline: 0;
+}
+
+.create-post-form .create-post-btn {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 15px 30px;
+  font-size: 18px;
+  transition: background-color 0.4s, color 0.4s;
+  cursor: pointer;
+  width: 50%;
+  letter-spacing: 2px;
+}
+.create-post-form .create-post-btn:hover {
+  color: #e2e2e2;
+  background-color: #333;
+}
+
+/* Media Querries */
+/* Media Querries */
+
+@media (max-width: 990px) {
+  .create-post-form .create-post-input,
+  .create-post-form .create-post-textarea,
+  .create-post-form .create-post-upload {
+    width: 90%;
+  }
+  .create-post-form .create-post-btn {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .create-post-title h1 {
+    font-size: 50px;
+  }
+
+  .create-post-form .create-post-input,
+  .create-post-form .create-post-textarea,
+  .create-post-form .create-post-upload {
+    width: 100%;
+  }
+  .create-post-form .create-post-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .create-post-title h1 {
+    font-size: 33px;
+  }
+  .create-post-title h3 {
+    font-size: 15px;
+  }
+}

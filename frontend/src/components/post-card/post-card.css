@@ -1,0 +1,132 @@
+/* Post */
+/* Post */
+.post-card {
+  text-align: left;
+  width: 45%;
+}
+
+.posts-page {
+  text-align: left;
+  width: 85%;
+  margin-bottom: 50px;
+}
+
+.post-link-wrapper {
+  width: 100%;
+  box-shadow: none;
+  color: #000;
+  background-color: #fff;
+  border-radius: 25px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 15px;
+  transition: box-shadow 0.35s, color 0.35s;
+}
+.post-card:hover .post-link-wrapper,
+.posts-page:hover .post-link-wrapper {
+  color: #000;
+  box-shadow: 0 9px 20px 14px rgba(0, 0, 0, 0.13);
+}
+
+.post-card .post-link-wrapper .image-post-wrapper {
+  width: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+  max-height: 320px;
+}
+/* post-page */
+.posts-page .post-link-wrapper .image-post-wrapper {
+  width: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+  min-height: 200px;
+  max-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-card .post-link-wrapper .image-post-wrapper img {
+  width: 100%;
+  transition: 0.5s all ease-in-out;
+  height: 130%;
+}
+/* posts-page */
+.posts-page .post-link-wrapper .image-post-wrapper img {
+  transition: 0.5s all ease-in-out;
+}
+
+.post-card:hover .image-post-wrapper img,
+.posts-page:hover .image-post-wrapper img {
+  transform: scale(1.5);
+}
+
+/* details */
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 15px;
+  min-width: 100%;
+}
+
+.author-date-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.author-date-container p:first-child span {
+  color: #8f8f8f;
+  font-size: 16px;
+}
+
+.details p {
+  margin: 3px 0;
+}
+
+.details .date {
+  color: #8f8f8f;
+  font-size: 16px;
+}
+.details .category-name {
+  color: #747474;
+  background-color: #e8e8e6;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+.details .title {
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: bold;
+}
+.details .description {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+/* Media Queries */
+/* Media Queries */
+
+@media (max-width: 768px) {
+  .post-card {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-link-wrapper .image-post-wrapper {
+    min-width: 0;
+  }
+}

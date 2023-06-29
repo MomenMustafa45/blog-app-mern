@@ -1,0 +1,67 @@
+/* dashboard Main */
+.dashboard-main-parent {
+  flex: 10;
+  padding: 10px;
+}
+.dashboard-main-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  padding: 20px 0;
+}
+
+/* dashboard-card-form */
+/* dashboard-card-form */
+.dashboard-main-form {
+  padding: 30px 0;
+}
+
+.dashboard-card-form {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  border: 1px solid;
+  border-radius: 6px;
+  box-shadow: 0px 0px 4px #000;
+}
+
+.dashboard-card-form h3 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.dashboard-card-form label {
+  font-size: 14px;
+  color: #a9a9a9;
+}
+
+.dashboard-card-form input {
+  padding: 15px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.dashboard-card-form .btn-add-category {
+  padding: 15px 0;
+  outline: none;
+  border: none;
+  border-radius: 7px;
+  font-size: 17px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+/* dashboard-card-form */
+
+@media (max-width: 600px) {
+  .dashboard-main-header {
+    flex-direction: column;
+  }
+  .dashboard-header-card {
+    width: 70% !important;
+    margin: 0 auto 20px auto;
+  }
+}
