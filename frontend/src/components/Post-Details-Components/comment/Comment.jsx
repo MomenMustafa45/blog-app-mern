@@ -1,13 +1,36 @@
 import "./comment.css";
 import image from "../../../images/testImage.jpg";
+import swal from "sweetalert";
+import { useDispatch } from "react-redux";
+import { deleteCommentPost } from "../../../redux/apiCalls/postApiCall";
 
 const CommentList = ({
-  deleteHandler,
   modalToggle,
   commentUserName,
   commentText,
   commentUserId,
+  commentDate,
+  user,
+  commentId,
 }) => {
+  const dispatch = useDispatch();
+
+  const deleteCommentHandler = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Are you sure?",
+      text: `Once deleted, you will not be able to recover this comment!`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(deleteCommentPost(commentId));
+      } else {
+        swal(`Your comment is safe!`);
+      }
+    });
+  };
   return (
     <div className="comment-parent">
       <div className="comment-container1">
@@ -18,7 +41,7 @@ const CommentList = ({
           <p className="comment-username">{commentUserName}</p>
         </div>
 
-        <p className="comment-date">20/35/2021</p>
+        <p className="comment-date">{new Date(commentDate).toUTCString()}</p>
       </div>
 
       <div className="comment-container2">
@@ -26,11 +49,15 @@ const CommentList = ({
           <p>{commentText}</p>
         </div>
         <div className="comment-icons">
-          <i
-            className="bi bi-trash3-fill"
-            onClick={() => deleteHandler("Comment")}
-          ></i>
-          <i className="bi bi-pencil-square" onClick={modalToggle}></i>
+          {commentUserId === user && (
+            <>
+              <i
+                className="bi bi-trash3-fill"
+                onClick={(e) => deleteCommentHandler(e)}
+              ></i>
+              <i className="bi bi-pencil-square" onClick={modalToggle}></i>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.auth);
 
   const [updateProfileModal, setUpdateProfileModal] = useState(false);
   const [userName, setUserName] = useState(profile?.userName);
@@ -92,15 +93,17 @@ const Profile = () => {
       <div className="person-profile-container">
         <div className="img-container">
           <img src={`${profilePhotoPath}`} alt="this is img" />
-          <form className="icon-img" onSubmit={uploadProfilePhotoHandler}>
-            <input
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />{" "}
-            <button className="btn-upload-photo">Upload</button>
-          </form>
+          {user?._id === id && (
+            <form className="icon-img" onSubmit={uploadProfilePhotoHandler}>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                onChange={(e) => setFile(e.target.files[0])}
+              />{" "}
+              <button className="btn-upload-photo">Upload</button>
+            </form>
+          )}
         </div>
 
         <h3 className="person-name">{profile?.userName}</h3>
@@ -110,25 +113,39 @@ const Profile = () => {
           <span>{new Date(profile?.createdAt).toDateString()}</span>
         </p>
 
-        <button
-          className="update-btn"
-          onClick={() => setUpdateProfileModal((prev) => !prev)}
-        >
-          Update Profile
-        </button>
+        {user?._id === id && (
+          <button
+            className="update-btn"
+            onClick={() => setUpdateProfileModal((prev) => !prev)}
+          >
+            Update Profile
+          </button>
+        )}
       </div>
 
       <div className="person-posts-conatainer">
         <h1>{profile?.userName} Posts</h1>
         {profile?.posts?.map((post, indx) => (
-          <PostCard fromPage={true} key={indx} />
+          <PostCard
+            fromPage={true}
+            key={indx}
+            postTitle={post.title}
+            postCategory={post.category}
+            postDescription={post.description}
+            postDate={post.createdAt}
+            postId={post._id}
+            postImg={post.image.url}
+          />
         ))}
       </div>
-      <div className="delete-acc-parent">
-        <button className="delete-acc-btn" onClick={deleteProfileHandler}>
-          Delete Account
-        </button>
-      </div>
+
+      {user?._id === id && (
+        <div className="delete-acc-parent">
+          <button className="delete-acc-btn" onClick={deleteProfileHandler}>
+            Delete Account
+          </button>
+        </div>
+      )}
 
       {/* Update Form Modal */}
       {/* Update Form Modal */}

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { updateCommentPost } from "../../../redux/apiCalls/postApiCall";
 import FormModal from "../../form-modal/FormModal";
 import "./update-comment-modal.css";
 
-const UpdateCommentModal = ({ modalToggle }) => {
+const UpdateCommentModal = ({ modalToggle, commentId }) => {
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
 
   const updateCommentHandler = (e) => {
     e.preventDefault();
-    if (text.length === 0) {
-      return toast.error("text is rqeuired");
-    }
-    console.log("comment updated");
+    if (text.length === 0) return toast.error("text is rqeuired");
+    dispatch(updateCommentPost(commentId, { text }));
+    modalToggle();
   };
 
   return (
@@ -25,7 +27,6 @@ const UpdateCommentModal = ({ modalToggle }) => {
             value: text,
             onChangeHandler: (e) => {
               setText(e.target.value);
-              console.log(text);
             },
           },
         ]}

@@ -1,6 +1,5 @@
 import "./home.css";
 import PostCard from "../../components/post-card/PostCard";
-import Categories from "../../components/categories/Categories";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPosts } from "../../redux/apiCalls/postApiCall";
@@ -26,19 +25,18 @@ const Home = () => {
         <div className="latest-posts-title">
           <h2>Latest posts</h2>
         </div>
-        <Categories />
         <article className="latest-posts-container">
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <PostCard
-              postId={post._id}
+              postId={post?._id}
               fromPage={true}
-              key={post._id}
-              postTitle={post.title}
-              postDescription={post.description}
-              postImg={post.image.url}
-              author={post.user.userName}
-              postDate={post.createdAt}
-              postCategory={post.category}
+              key={post?._id}
+              postTitle={post?.title}
+              postDescription={post?.description}
+              postImg={post?.image.url}
+              author={post?.user?.userName}
+              postDate={post?.createdAt}
+              postCategory={post?.category}
             />
           ))}
         </article>

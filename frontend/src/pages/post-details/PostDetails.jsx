@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getSinglePost, toggleLike } from "../../redux/apiCalls/postApiCall";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  deletePost,
+  getSinglePost,
+  toggleLike,
+} from "../../redux/apiCalls/postApiCall";
 import "./post-details.css";
 import "react-toastify/dist/ReactToastify.css";
 import swal from "sweetalert";
@@ -11,6 +15,7 @@ import UpdatePost from "../../components/Post-Details-Components/update-post/Upd
 import UpdateCommentModal from "../../components/Post-Details-Components/update-comment/UpdateCommentModal";
 
 const PostDetails = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { singlePost } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
@@ -18,13 +23,14 @@ const PostDetails = () => {
   const [toggleComments, setToggleComments] = useState(false);
   const [updatePostModal, setUpdatePostModal] = useState(false);
   const [updateCommentModal, setUpdateCommentModal] = useState(false);
+  const [commentId, setCommentId] = useState(null);
 
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getSinglePost(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, singlePost]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,8 +53,9 @@ const PostDetails = () => {
   const updatePostToggleHandler = () => {
     setUpdatePostModal((prev) => !prev);
   };
-  const updateCommentToggleHandler = () => {
+  const updateCommentToggleHandler = (commentId) => {
     setUpdateCommentModal((prev) => !prev);
+    setCommentId(commentId);
   };
 
   // const updateImageHandler = (e) => {
@@ -71,23 +78,21 @@ const PostDetails = () => {
 
   // swal sweetalert for deleting Post and comment
   // swal sweetalert for deleting Post and comment
-  const deleteHandler = (type) => {
+  const deletePostHandler = (type) => {
     swal({
       title: "Are you sure?",
       text: `Once deleted, you will not be able to recover this ${type}!`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal(`Poof! Your ${type} has been deleted!`, {
-          icon: "success",
-        });
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(deletePost(singlePost?._id));
+        navigate(`/profile/${user?._id}`);
       } else {
         swal(`Your ${type} is safe!`);
       }
     });
-    console.log(type);
   };
 
   return (
@@ -102,10 +107,10 @@ const PostDetails = () => {
           <div className="author">
             <img src={postOwnerPhotoRoute} alt="HEY" />
             <Link
-              to={`/profile/${singlePost?.user._id}`}
+              to={`/profile/${singlePost?.user?._id}`}
               className="post-details-h2"
             >
-              {singlePost?.user.userName}
+              {singlePost?.user?.userName}
             </Link>
           </div>
           <div className="separator"></div>
@@ -122,26 +127,26 @@ const PostDetails = () => {
           <ul className="post-icons">
             <li onClick={commentsToggleHandler}>
               <i className="bi bi-chat-left-text"></i>
-              {singlePost?.comment.length} Comments
+              {singlePost?.comment?.length} Comments
             </li>
             <li onClick={() => dispatch(toggleLike(singlePost?._id))}>
               <i
                 className={
-                  singlePost?.likes.includes(user?._id)
+                  singlePost?.likes?.includes(user?._id)
                     ? "bi bi-heart-fill"
                     : "bi bi-heart"
                 }
               ></i>
-              {singlePost?.likes.length} Likes
+              {singlePost?.likes?.length} Likes
             </li>
 
-            {user._id === singlePost?.user._id && (
+            {user?._id === singlePost?.user?._id && (
               <>
                 <li onClick={updatePostToggleHandler}>
                   <i className="bi bi-pencil-square"></i>
                   Edit Post
                 </li>
-                <li onClick={() => deleteHandler("post")}>
+                <li onClick={() => deletePostHandler("post")}>
                   <i className="bi bi-trash3-fill"></i>
                   Delete Post
                 </li>
@@ -157,14 +162,21 @@ const PostDetails = () => {
           className="comments-list"
           style={toggleComments ? { height: "auto" } : { height: "0" }}
         >
-          <AddComment />
-          {singlePost?.comment.map((comment) => (
+          {user ? (
+            <AddComment postId={singlePost?._id} userId={user?._id} />
+          ) : (
+            <p>To Write A Comment Log In First</p>
+          )}
+          {singlePost?.comment?.map((comment) => (
             <Comment
               commentText={comment.text}
               commentUserId={comment.user}
               commentUserName={comment.userName}
-              deleteHandler={deleteHandler}
-              modalToggle={updateCommentToggleHandler}
+              modalToggle={() => updateCommentToggleHandler(comment._id)}
+              key={comment._id}
+              commentDate={comment.createdAt}
+              user={user?._id}
+              commentId={comment._id}
             />
           ))}
         </div>
@@ -175,9 +187,17 @@ const PostDetails = () => {
           {new Date(singlePost?.createdAt).toDateString()}
         </h6>
       </div>
-      {updatePostModal && <UpdatePost modalToggle={updatePostToggleHandler} />}
+      {updatePostModal && (
+        <UpdatePost
+          modalToggle={updatePostToggleHandler}
+          singlePost={singlePost}
+        />
+      )}
       {updateCommentModal && (
-        <UpdateCommentModal modalToggle={updateCommentToggleHandler} />
+        <UpdateCommentModal
+          modalToggle={updateCommentToggleHandler}
+          commentId={commentId}
+        />
       )}
     </section>
   );

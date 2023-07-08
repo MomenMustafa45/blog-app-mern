@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import FormModal from "../../form-modal/FormModal";
+import { useDispatch } from "react-redux";
 
 import "./update-post.css";
+import { updateSinglePost } from "../../../redux/apiCalls/postApiCall";
 
-const UpdatePost = ({ modalToggle }) => {
-  const [title, setTitle] = useState("");
-  const [file, setFile] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+const UpdatePost = ({ modalToggle, singlePost }) => {
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState(singlePost?.title);
+  const [category, setCategory] = useState(singlePost?.category);
+  const [description, setDescription] = useState(singlePost?.description);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +20,10 @@ const UpdatePost = ({ modalToggle }) => {
     if (description.trim() === "")
       return toast.error("Post description is required");
 
-    console.log({ title, category, description });
+    dispatch(
+      updateSinglePost({ title, category, description }, singlePost?._id)
+    );
+    modalToggle();
   };
 
   return (
@@ -48,12 +54,6 @@ const UpdatePost = ({ modalToggle }) => {
           textAreaPlaceHolder: "Post Description",
           textAreaValue: description,
           textAreaOnChange: (e) => setDescription(e.target.value),
-        }}
-        //
-
-        showInputFile={{
-          value: file,
-          onChangeFile: (e) => setFile(e.target.value),
         }}
         //
 
