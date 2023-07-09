@@ -73,7 +73,6 @@ const PostDetails = () => {
   // toggle Comments list
   const commentsToggleHandler = () => {
     setToggleComments((prev) => !prev);
-    console.log(toggleComments);
   };
 
   // swal sweetalert for deleting Post and comment
@@ -114,15 +113,7 @@ const PostDetails = () => {
             </Link>
           </div>
           <div className="separator"></div>
-          <p className="post-details-p">
-            {singlePost?.description}
-            Magnesium is one of the six essential macro-minerals that is
-            required by the body for energy production and synthesis of protein
-            and enzymes. It contributes to the development of bones and most
-            importantly it is responsible for synthesis of your DNA and RNA. A
-            new report that has appeared in theBritish Journal of Cancer, gives
-            you another reason to add more magnesium to your diet...
-          </p>
+          <p className="post-details-p">{singlePost?.description}</p>
 
           <ul className="post-icons">
             <li onClick={commentsToggleHandler}>

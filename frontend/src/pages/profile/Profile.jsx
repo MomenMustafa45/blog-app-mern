@@ -6,17 +6,20 @@ import FormModal from "../../components/form-modal/FormModal";
 import "./profile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
+  deleteProfile,
   getUserProfile,
   updateProfile,
   uploadProfilePhoto,
 } from "../../redux/apiCalls/profileApiCall";
 import { toast } from "react-toastify";
+import { logout } from "../../redux/apiCalls/authApiCall";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.profile);
+  const { profile, isProfileDeleted } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.auth);
 
   const [updateProfileModal, setUpdateProfileModal] = useState(false);
@@ -31,6 +34,12 @@ const Profile = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    if (isProfileDeleted) {
+      navigate("/");
+    }
+  }, [navigate, isProfileDeleted]);
 
   // Upload Profile photo
   const uploadProfilePhotoHandler = (e) => {
@@ -50,18 +59,17 @@ const Profile = () => {
     );
 
   // Delete profile
-  const deleteProfileHandler = () => {
+  const deleteProfileHandler = (userId) => {
     swal({
       title: "Are You Sure?",
       text: "once deleting your account, it can't be recovered again",
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal("Poof, Your Account has been deleted", {
-          icon: "success",
-        });
+    }).then((isOK) => {
+      if (isOK) {
+        dispatch(deleteProfile(userId));
+        dispatch(logout());
       } else {
         swal("Your account is safe");
       }
@@ -141,7 +149,10 @@ const Profile = () => {
 
       {user?._id === id && (
         <div className="delete-acc-parent">
-          <button className="delete-acc-btn" onClick={deleteProfileHandler}>
+          <button
+            className="delete-acc-btn"
+            onClick={() => deleteProfileHandler(profile?._id)}
+          >
             Delete Account
           </button>
         </div>

@@ -11,7 +11,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPosts(1));
-    console.log(posts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

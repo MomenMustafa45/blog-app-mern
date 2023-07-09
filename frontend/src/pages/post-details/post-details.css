@@ -129,6 +129,7 @@ img.left {
   line-height: 150%;
   color: #4b4b4b;
   max-width: 85%;
+  min-height: 190px;
 }
 
 /* DATE of release*/

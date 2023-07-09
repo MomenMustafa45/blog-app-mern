@@ -124,7 +124,7 @@ async function deletePostCtrl(req, res) {
 
     res
       .status(200)
-      .json({ message: "Post Deleted Successfully", postURL: post.image.url });
+      .json({ message: "Post Deleted Successfully", postId: post._id });
   } else {
     return res.status(403).json({
       message: "Access Denied, Only Admin or Owner of post can delete!",

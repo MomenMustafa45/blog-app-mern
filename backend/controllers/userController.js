@@ -134,18 +134,17 @@ async function deleteUserProfileCtrl(req, res) {
     // 3- Delete all posts image from server that belongs to this user
     posts.map((post) => {
       if (post.image.url.includes(`${user._id}`)) {
-        fs.unlinkSync(`${post.image.url}`);
+        if (fs.existsSync(`${post.image.url}`)) {
+          fs.unlinkSync(`${post.image.url}`);
+        }
       }
     });
 
     // 4- Delete the profile picture from server
     if (!user.profilePhoto.url.includes("../images/avatar")) {
-      fs.unlinkSync(`${user.profilePhoto.url}`, (err) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-      });
+      if (fs.existsSync(`${user.profilePhoto.url}`)) {
+        fs.unlinkSync(`${user.profilePhoto.url}`);
+      }
     }
 
     // 5- Delete User posts&comments
