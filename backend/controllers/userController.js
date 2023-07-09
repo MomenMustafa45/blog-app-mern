@@ -63,7 +63,7 @@ const updateUserCtrl = async (req, res) => {
         },
       },
       { new: true }
-    );
+    ).populate("posts");
 
     res.status(200).json(newUser);
   } catch (error) {

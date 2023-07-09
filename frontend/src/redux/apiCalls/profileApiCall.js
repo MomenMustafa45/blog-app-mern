@@ -76,7 +76,7 @@ export function deleteProfile(profileId) {
           Authorization: "Bearer " + getState().auth.user.token,
         },
       });
-      dispatch(profileActions.setIsProfileDeleted());
+      dispatch(profileActions.setIsProfileDeleted(profileId));
       toast.success(data);
       setTimeout(() => {
         dispatch(profileActions.clearIsProfileDeleted());
@@ -84,6 +84,41 @@ export function deleteProfile(profileId) {
     } catch (error) {
       console.log(error.response.data.message);
       dispatch(profileActions.clearLoading());
+    }
+  };
+}
+
+// Get all profiles
+export function getAllProfiles() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get("/api/users/profile", {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+
+      dispatch(profileActions.setProfiles(data));
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+}
+
+// Get profiles Count
+
+export function getProfilesCount() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get("/api/users/count", {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+
+      dispatch(profileActions.setProfileCount(data));
+    } catch (error) {
+      console.log(error.response.data);
     }
   };
 }

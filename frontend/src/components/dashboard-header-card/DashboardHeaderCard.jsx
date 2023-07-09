@@ -1,11 +1,11 @@
 import React from "react";
 import "./dashboard-header-card.css";
 
-const DashboardHeaderCard = () => {
+const DashboardHeaderCard = ({ cardName, count }) => {
   return (
     <div className="dashboard-header-card">
-      <h4 className="card-title">Users</h4>
-      <p className="card-count">120</p>
+      <h4 className="card-title">{cardName}</h4>
+      <p className="card-count">{count}</p>
       <div className="card-btn">
         <p>See All Users</p>
         <i className="bi bi-person"></i>

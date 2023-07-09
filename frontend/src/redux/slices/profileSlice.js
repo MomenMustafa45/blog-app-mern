@@ -6,6 +6,8 @@ const profileSlice = createSlice({
     profile: null,
     loading: false,
     isProfileDeleted: false,
+    profileCount: null,
+    profiles: [],
   },
   reducers: {
     setProfile(state, action) {
@@ -23,12 +25,19 @@ const profileSlice = createSlice({
     clearLoading(state) {
       state.loading = false;
     },
-    setIsProfileDeleted(state) {
+    setIsProfileDeleted(state, action) {
       state.isProfileDeleted = true;
       state.loading = false;
+      state.profiles = state.profiles.filter((p) => p._id !== action.payload);
     },
     clearIsProfileDeleted(state) {
       state.isProfileDeleted = false;
+    },
+    setProfileCount(state, action) {
+      state.profileCount = action.payload;
+    },
+    setProfiles(state, action) {
+      state.profiles = action.payload;
     },
   },
 });
