@@ -10,16 +10,24 @@ import {
 } from "../../../redux/apiCalls/categoryApiCall";
 import { useEffect } from "react";
 import { getProfilesCount } from "../../../redux/apiCalls/profileApiCall";
+import {
+  getAllComments,
+  getPostsCount,
+} from "../../../redux/apiCalls/postApiCall";
 
 const AdminMain = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { profileCount } = useSelector((state) => state.profile);
+  const { postsCount } = useSelector((state) => state.post);
+  const { comments } = useSelector((state) => state.comment);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProfilesCount());
+    dispatch(getPostsCount());
+    dispatch(getAllComments());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -35,9 +43,9 @@ const AdminMain = () => {
     <section className="dashboard-main-parent">
       <div className="dashboard-main-header">
         <DashboardHeaderCard cardName="Users" count={profileCount} />
-        <DashboardHeaderCard cardName="Posts" count={20} />
+        <DashboardHeaderCard cardName="Posts" count={postsCount} />
         <DashboardHeaderCard cardName="Categories" count={categories.length} />
-        <DashboardHeaderCard cardName="Comments" count={20} />
+        <DashboardHeaderCard cardName="Comments" count={comments.length} />
       </div>
 
       <div className="dashboard-main-form">

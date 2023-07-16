@@ -1,6 +1,7 @@
 import { postActions } from "../slices/postSlice";
 import request from "../../utils/request";
 import { toast } from "react-toastify";
+import { commentActions } from "../slices/commentSlice";
 
 // get posts
 export function getPosts(pageNum) {
@@ -146,6 +147,7 @@ export function deleteCommentPost(commentId) {
       });
 
       dispatch(postActions.deleteCommentPost(commentId));
+      dispatch(commentActions.deleteCommet(commentId));
       toast.success(data.message);
     } catch (error) {
       console.log(error.response);
@@ -170,6 +172,23 @@ export function updateCommentPost(commentId, newComment) {
       toast.success("Comment Updated Successfully");
     } catch (error) {
       console.log(error.response);
+    }
+  };
+}
+
+// Get All comments
+
+export function getAllComments() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get("/api/comment", {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      dispatch(commentActions.setComments(data));
+    } catch (error) {
+      console.log(error.response.data);
     }
   };
 }

@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../redux/apiCalls/postApiCall";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCategories } from "../../redux/apiCalls/categoryApiCall";
 
 const CreatePost = () => {
   const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
   const { isLoading, isPostCreated } = useSelector((state) => state.post);
 
   const [title, setTitle] = useState("");
@@ -16,6 +18,11 @@ const CreatePost = () => {
   const [file, setFile] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,8 +72,13 @@ const CreatePost = () => {
           <option disabled value="">
             Select A Category
           </option>
-          <option value="Dreams">Dreams</option>
-          <option value="Travells">Travells</option>
+          {categories?.map((cate) => (
+            <>
+              <option value={cate?.title} key={cate?._id}>
+                {cate?.title}
+              </option>
+            </>
+          ))}
         </select>
 
         <textarea

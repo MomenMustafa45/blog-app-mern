@@ -25,6 +25,8 @@ const TableDashboard = ({ title, headers, items, deleteItem }) => {
     <div className="table-container">
       <h1 className="table-title">{title}</h1>
       <table>
+        {/* Header of the Table */}
+        {/* Header of the Table */}
         <thead>
           <tr>
             {headers.map((header, index) => (
@@ -32,13 +34,33 @@ const TableDashboard = ({ title, headers, items, deleteItem }) => {
             ))}
           </tr>
         </thead>
+        {/* Header of the Table */}
+        {/* Header of the Table */}
         <tbody>
           {items.map((item, index) => {
-            const profilePhotoPath =
-              "http://localhost:8000/" +
-              item?.profilePhoto?.url?.slice(
-                item?.profilePhoto?.url?.indexOf("images")
-              );
+            // Getting photo path from server
+            // Getting photo path from server
+            let itemPhotoPath = "";
+            if (item?.profilePhoto?.url) {
+              itemPhotoPath =
+                "http://localhost:8000/" +
+                item?.profilePhoto?.url?.slice(
+                  item?.profilePhoto?.url?.indexOf("images")
+                );
+            } else if (item?.image?.url) {
+              itemPhotoPath =
+                "http://localhost:8000/" +
+                item?.image?.url?.slice(item?.image?.url?.indexOf("images"));
+            } else {
+              itemPhotoPath =
+                "http://localhost:8000/" +
+                item?.user?.profilePhoto?.url?.slice(
+                  item?.user?.profilePhoto?.url?.indexOf("images")
+                );
+            }
+
+            // Getting photo path from server
+
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
@@ -51,23 +73,29 @@ const TableDashboard = ({ title, headers, items, deleteItem }) => {
                   <>
                     <td>
                       <img
-                        src={profilePhotoPath}
+                        src={itemPhotoPath}
                         alt="this is img"
                         className="table-user-image"
                       />
-                      <span className="table-username">{item.userName}</span>
+                      <span className="table-username">
+                        {item?.user?.userName
+                          ? item?.user?.userName
+                          : item?.userName}
+                      </span>
                     </td>
 
                     <td>
                       {route.pathname === "/admin-dashboard/users-table"
                         ? item.email
-                        : item.title}
+                        : route.pathname === "/admin-dashboard/posts-table"
+                        ? item.title
+                        : item.text}
                     </td>
                   </>
                 ) : (
                   <>
                     <td>
-                      <b style={{ padding: "10px" }}>{item.title}</b>
+                      <b style={{ padding: "10px" }}>{item?.title}</b>
                     </td>
                   </>
                 )}
@@ -80,7 +108,7 @@ const TableDashboard = ({ title, headers, items, deleteItem }) => {
                     route.pathname === "/admin-dashboard/posts-table" ? (
                       <>
                         <button>
-                          <Link to="/profile/1">View Profile</Link>
+                          <Link to={`/profile/${item?._id}`}>View Profile</Link>
                         </button>
                       </>
                     ) : (
